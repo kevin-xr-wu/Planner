@@ -38,7 +38,7 @@ public class Task extends AppCompatActivity {
         // String task = editText.getText().toString();
         // intent.putExtra(EXTRA_MESSAGE, task);
         mTasks.add(editText.getText().toString());
-        setResult(RESULT_OK, intent);
+        //setResult(RESULT_OK, intent);
         finish();
     }
 
