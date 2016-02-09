@@ -33,7 +33,7 @@ public class Task extends AppCompatActivity {
     }
 
     public void sendBackTask(){
-        //Intent intent = new Intent();
+        Intent intent = new Intent();
         EditText editText = (EditText) findViewById(R.id.newTask);
         // String task = editText.getText().toString();
         // intent.putExtra(EXTRA_MESSAGE, task);
