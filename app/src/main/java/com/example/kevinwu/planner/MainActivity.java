@@ -37,8 +37,6 @@ public class MainActivity extends AppCompatActivity {
     public ArrayList<String> taskList = new ArrayList<>();
     static final String CHECK_KEY = "checkBoxKey";
     static final String STATE_KEY = "taskListKey";
-    boolean isChecked;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
