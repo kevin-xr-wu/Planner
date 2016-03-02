@@ -1,29 +1,43 @@
 package com.example.kevinwu.planner;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
+
+// implement checkboxes savestate,
+// implement saving the tasks and whether they are checked or not
+// calendar api
 
 public class MainActivity extends AppCompatActivity {
 
-    private ArrayList<String> tasks;
-    static final String STATE_STRING_LIST = "TaskList";
-    static final String STATE_BUNDLE_TASKS = "TasksBundle";
-    private ListView listView;
+    public ArrayList<String> taskList = new ArrayList<>();
+    static final String CHECK_KEY = "checkBoxKey";
+    static final String STATE_KEY = "taskListKey";
+    boolean isChecked;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,62 +45,57 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         if(savedInstanceState != null)
         {
-            tasks = savedInstanceState.getStringArrayList(STATE_STRING_LIST);
+            taskList = savedInstanceState.getStringArrayList(STATE_KEY);
+            String[] mTasks = new String[taskList.size()];
+            mTasks = taskList.toArray(mTasks);
+            ListAdapter listAdapter = new CustomAdapter(this, mTasks);
+            ListView listView = (ListView) findViewById(R.id.list);
+            listView.setAdapter(listAdapter);
         }
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        //Log.i(TAG, "OnCreate");
+
     }
 
     @Override
-    public void onSaveInstanceState(Bundle savedInstanceState){
-        savedInstanceState.putStringArrayList(STATE_STRING_LIST, tasks);
-    }
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putStringArrayList(STATE_KEY, taskList);
 
-    public void onRestoreInstanceState(Bundle savedInstanceState){
-        super.onRestoreInstanceState(savedInstanceState);
-        tasks = savedInstanceState.getStringArrayList(STATE_STRING_LIST);
     }
 
     public void createTask(View view) {
         Intent intent = new Intent(this, Task.class);
-        Bundle mBundle = new Bundle();
-        mBundle.putStringArrayList(STATE_BUNDLE_TASKS, tasks);
-        intent.putExtras(mBundle);
-//        startActivityForResult(intent, 1);
-        startActivity(intent);
+        //Log.i(TAG, "CreateTask");
+        startActivityForResult(intent, 1);
     }
 
-    public void display(){
-        if(tasks.isEmpty())
-        {
-            return;
-        }
-        else
-        {
-            for(String task : tasks)
-            {
-                TextView textView = new TextView(this);
-                textView.setTextSize(30);
-                textView.setText(task);
-                LinearLayout layout = (LinearLayout) findViewById(R.id.content);
-                layout.addView(textView);
-            }
-        }
-    }
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        String task = data.getStringExtra(Task.EXTRA_MESSAGE);
-//        if (requestCode == 1) {
-//            if(resultCode == RESULT_OK){
-//                String display_task = task;
-//                TextView textView = new TextView(this);
-//                textView.setTextSize(30);
-//                textView.setText(display_task);
-//                LinearLayout layout = (LinearLayout) findViewById(R.id.content);
-//                layout.addView(textView);
-//            }
-//        }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //Log.i(TAG, "onActivityResult");
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK && requestCode == 1 && data != null) {
+
+            String task = data.getStringExtra(Task.EXTRA_MESSAGE);
+            taskList.add(task);
+            //Log.i(TAG, task);
+            String[] mTasks = new String[taskList.size()];
+            mTasks = taskList.toArray(mTasks);
+            //Log.i(TAG, task);
+            ListAdapter listAdapter = new CustomAdapter(this, mTasks);
+            ListView listView = (ListView) findViewById(R.id.list);
+
+//        listView.setOnItemClickListener(
+//                new AdapterView.OnItemClickListener() {
+//                    @Override
+//                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                        String food = String.valueOf(parent.getItemAtPosition(position));
+//                        Toast.makeText(MainActivity.this, food, Toast.LENGTH_LONG).show();
+//                    }
 //
-//    }
+//                }
+//        );
 
+            listView.setAdapter(listAdapter);
+        }
+    }
 }
