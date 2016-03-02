@@ -9,7 +9,6 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-
 /**
  * Created by Kevin Wu on 2/15/2016.
  */
@@ -25,8 +24,8 @@ class CustomAdapter extends ArrayAdapter<String> {
 
         String singleTask = getItem(position);
         TextView view = (TextView) customView.findViewById(R.id.textView);
-
         view.setText(singleTask);
+
         return customView;
     }
 }

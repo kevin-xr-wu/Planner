@@ -10,6 +10,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,7 +24,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import com.example.kevinwu.planner.TaskInfo;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,8 +35,7 @@ import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
-    public ArrayList<String> taskList = new ArrayList<>();
-    static final String CHECK_KEY = "checkBoxKey";
+    public ArrayList<TaskInfo> taskList = new ArrayList<>();
     static final String STATE_KEY = "taskListKey";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,22 +43,23 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         if(savedInstanceState != null)
         {
-            taskList = savedInstanceState.getStringArrayList(STATE_KEY);
+            taskList = savedInstanceState.getParcelableArrayList(STATE_KEY);
             String[] mTasks = new String[taskList.size()];
-            mTasks = taskList.toArray(mTasks);
+            for(int i = 0; i < taskList.size(); i++)
+            {
+                mTasks[i] = taskList.get(i).getTask();
+            }
             ListAdapter listAdapter = new CustomAdapter(this, mTasks);
             ListView listView = (ListView) findViewById(R.id.list);
             listView.setAdapter(listAdapter);
         }
         //Log.i(TAG, "OnCreate");
-
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putStringArrayList(STATE_KEY, taskList);
-
+        outState.putParcelableArrayList(STATE_KEY, taskList);
     }
 
     public void createTask(View view) {
@@ -74,10 +75,19 @@ public class MainActivity extends AppCompatActivity {
         if(resultCode == RESULT_OK && requestCode == 1 && data != null) {
 
             String task = data.getStringExtra(Task.EXTRA_MESSAGE);
-            taskList.add(task);
+            TaskInfo info = new TaskInfo();
+            info.setTask(task);
+            info.setIsChecked(false);
+            taskList.add(info);
+
             //Log.i(TAG, task);
             String[] mTasks = new String[taskList.size()];
-            mTasks = taskList.toArray(mTasks);
+            //mTasks = taskList.toArray(mTasks);
+            for(int i = 0; i < taskList.size(); i++)
+            {
+                mTasks[i] = taskList.get(i).getTask();
+            }
+
             //Log.i(TAG, task);
             ListAdapter listAdapter = new CustomAdapter(this, mTasks);
             ListView listView = (ListView) findViewById(R.id.list);
