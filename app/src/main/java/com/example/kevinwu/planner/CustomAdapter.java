@@ -8,11 +8,11 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 /**
  * Created by Kevin Wu on 2/15/2016.
  */
 class CustomAdapter extends ArrayAdapter<String> {
+
     public CustomAdapter(Context context, String[] tasks) {
         super(context, R.layout.custom_row, tasks);
     }
@@ -28,4 +28,5 @@ class CustomAdapter extends ArrayAdapter<String> {
 
         return customView;
     }
+
 }

@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.example.kevinwu.planner.Task">
+    tools:context="com.example.kevinwu.planner.Calendar">
 
-    <include layout="@layout/content_task" />
+    <include layout="@layout/content_calendar" />
 
 </android.support.design.widget.CoordinatorLayout>

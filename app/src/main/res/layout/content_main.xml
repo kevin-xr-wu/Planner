@@ -17,16 +17,41 @@
     android:id = "@+id/content"
     android:orientation="vertical"
     android:weightSum="1">
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/button_toCalendar"
+        android:onClick="toCalendar"
+        android:id="@+id/calendarButton" />
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/button_addTask"
         android:onClick="createTask" />
 
-        <ListView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id = "@+id/list">
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="-"
+        android:id="@+id/deleteButton"
+        android:onClick="deleteTask"
+        android:singleLine="true" />
 
-        </ListView>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <ListView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id = "@+id/list">
+
+            </ListView>
     </LinearLayout>
+
+</LinearLayout>

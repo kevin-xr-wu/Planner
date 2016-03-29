@@ -2,7 +2,12 @@
     <string name="app_name">Planner</string>
     <string name="action_settings">Settings</string>
     <string name="button_addTask"> + </string>
+    <string name="button_toCalendar"> Calendar </string>
     <string name="newTask">Enter Task </string>
-    <string name="button_finishTask"> Done </string>
+    <string name="button_finishTask"> Add </string>
     <string name="title_activity_task">Create a New Task</string>
+    <string name="title_activity_calendar">Calendar</string>
+    <string name="task_text_input">Enter Task</string>
+    <string name="title_activity_remove_task">RemoveTask</string>
+    <string name="remove_delete_button">Delete</string>
 </resources>
