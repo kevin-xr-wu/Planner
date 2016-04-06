@@ -20,23 +20,6 @@ public class Task extends AppCompatActivity {
         setContentView(R.layout.activity_task);
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        return super.onCreateOptionsMenu(menu);
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch(item.getItemId())
-//        {
-//            case android.R.id.home:
-//                this.finish();
-//                return true;
-//            default:
-//                return super.onOptionsItemSelected(item);
-//        }
-//    }
-
     public void sendBackTask(View view){
         Intent intent = new Intent();
         EditText editText = (EditText) findViewById(R.id.newTask);

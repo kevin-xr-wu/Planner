@@ -19,14 +19,6 @@ public class RemoveTask extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_remove_task);
-
-//        ActionBar actionBar = getActionBar();
-//        try{
-//            actionBar.setDisplayHomeAsUpEnabled(true);
-//        }
-//        catch(NullPointerException e){
-//            Toast.makeText(RemoveTask.this,"debugger", Toast.LENGTH_LONG).show();
-//        }
     }
 
     public void removeTask(View view){
